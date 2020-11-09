@@ -8,7 +8,8 @@
     "dev": "webpack serve",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pls": "webpack-dev-server",
-    "start": "webpack serve"
+    "start": "webpack serve",
+    "heroku-prebuild": "npm install --dev"
   },
   "author": "",
   "license": "ISC",
