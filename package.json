@@ -8,7 +8,7 @@
     "dev": "webpack serve",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pls": "webpack-dev-server",
-    "start": "webpack serve",
+    "start": "serve -s",
     "heroku-prebuild": "npm install --dev",
     "heroku-postbuild": "npm run build"
   },
