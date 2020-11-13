@@ -1,0 +1,9 @@
+.corpus-tree {
+    width: 400px;
+    background: gainsboro;
+}
+
+.tree-node {
+    float: left;
+    width: 400px;
+}

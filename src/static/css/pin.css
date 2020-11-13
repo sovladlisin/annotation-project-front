@@ -1,0 +1,47 @@
+.pin {
+    width: 190px;
+    height: 35px;
+    float: left;
+    font-size: 7pt;
+    margin: 5px;
+    color: black;
+    background: white;
+    -webkit-box-shadow: 0px 2px 0px 1px rgb(35,45,65, 0.3);
+    -moz-box-shadow: 0px 2px 0px 1px rgb(35,45,65, 0.3);
+    box-shadow: 0px 2px 0px 1px rgb(35,45,65, 0.3);
+}
+
+.pin p {
+    float: left;
+    line-height: 35px;
+    font-size: 8pt;
+    height: 35px;
+    padding: 0;
+    margin: 0 0 0 5px;
+}
+
+.pin button {
+    float: right;
+    height: 25px;
+    margin: 5px 1px;
+    width: 25px;
+    color: white;
+    border-radius: 15px;
+    font-size: 10pt;
+    line-height: 27px;
+}
+
+p.pin-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100px;
+    cursor: pointer;
+}
+button.pin-delete {
+    color: #ff6766;
+}
+
+button.pin-open {
+    color: #20967c;
+}

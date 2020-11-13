@@ -1,0 +1,67 @@
+.corpus-view {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.selected-corpus {
+    width: 500px;
+}
+
+.corpus-info {
+    width: 480px;
+    font-size: 9pt;
+    background: gainsboro;
+    display: grid;
+    grid-template-columns: 155px 1fr;
+    gap: 5px;
+    padding: 10px;
+}
+
+.corpus-connections {
+    width: 500px;
+}
+
+p.corpus-connections-title {
+    width: 500px;
+    color: white;
+    background: #ff6766;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.corpus-connections-entities {
+    width: 470px;
+    height: 150px;
+    background: gainsboro;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.corpus-info p {
+    background: white;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+}
+
+.corpus-info label {
+    line-height: 30px;
+    text-align: right;
+}
+
+.ontology-view-selector {
+    width: 600px;
+    margin: 10px auto;
+    background: white;
+}
+
+.ontology-view-selector button {
+    width: 300px;
+    text-align: center;
+    padding: 10px;
+}
+
+.container {
+    width: 1000px;
+    margin: 0 auto;
+}

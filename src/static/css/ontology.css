@@ -1,0 +1,88 @@
+.corpus-ontology {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 30px;
+    gap:20px;
+}
+
+.corpus-ontology-options {
+    width: 250px;
+}
+
+.corpus-ontology-options p {
+    background: gainsboro;
+    margin: 10px 0;
+    padding: 5px;
+}
+
+.corpus-ontology-options button {
+    width: 300px;
+    text-align: left;
+    padding: 5px;
+    margin: 5px;
+}
+
+.corpus-ontology-content {
+    width: 700px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 900px;
+    overflow-y: auto;
+}
+
+.entity-list {
+    width: 300px;
+}
+
+.entity-list input {
+    width: 280px;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+.tree {
+    padding: 0 20px;
+    width: 300px;
+}
+
+.ontology-add-container {
+    display: grid;
+    gap: 0px 3px;
+    height: fit-content;
+    grid-template-columns: 70px 1fr;
+}
+
+.ontology-add-container label {
+    height: 30px;
+    line-height: 30px;
+    background: gainsboro;
+    font-size: 10pt;
+    width: 70px;
+    text-align: right;
+}
+
+.ontology-add-container input {
+    height: 20px;
+    padding: 5px;
+    font-size: 10pt;
+}
+
+.ontology-add-container p {
+    height: 20px;
+    line-height: 20px;
+    padding: 5px;
+    font-size: 10pt;
+}
+
+.ontology-add-container select {
+    height: 30px;
+    padding: 5px;
+    font-size: 10pt;
+}
+
+.ontology-add-container button {
+    background: #20967c;
+    color: white;
+    grid-column: auto / span 2;
+    height: 30px;
+}
