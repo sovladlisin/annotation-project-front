@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'react';
-import { SERVER_URL } from '../../utils';
+import { handleError, SERVER_URL } from '../../utils';
+import { CREATE_ALERT } from '../alerts/types';
 import { authDispatchTypes, LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT } from './types';
 
 // // CHECK TOKEN & LOAD USER
@@ -45,7 +46,10 @@ export const login = (username: string, password: string) => (dispatch: Dispatch
             dispatch({
                 type: LOGIN_FAIL,
             });
-            console.log(err)
+            dispatch({
+                type: CREATE_ALERT,
+                payload: { type: 500, message: 'Ошибка, проверьте правильность набранного имени пользователя и пароля' }
+            })
         });
 };
 
@@ -73,6 +77,10 @@ export const register = ({ username, password, email }) => (dispatch: Dispatch<a
             dispatch({
                 type: LOGIN_FAIL,
             });
+            dispatch({
+                type: CREATE_ALERT,
+                payload: handleError(err)
+            })
         });
 };
 
@@ -86,13 +94,20 @@ export const logout = () => (dispatch: Dispatch<authDispatchTypes>, getState) =>
             });
         })
         .catch((err) => {
+            dispatch({
+                type: LOGOUT
+            })
+            dispatch({
+                type: CREATE_ALERT,
+                payload: handleError(err)
+            })
         });
 };
 
 // Setup config with token - helper function
 export const tokenConfig = (getState) => {
     // Get token from state
-    const token = getState().auth.token;
+    const token = getState().auth.user.token;
 
     // Headers
     const config = {

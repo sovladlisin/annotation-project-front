@@ -21,7 +21,7 @@ const AuthorForm: React.FunctionComponent<IAuthorFormProps> = (props) => {
     const [surname, setSurname] = React.useState(props.author ? props.author.surname : "Не указано")
     const [patronymic, setPatronymic] = React.useState(props.author ? props.author.patronymic : "Не указано")
     const [picture, setPicture] = React.useState(props.author ? props.author.picture : "Не указано")
-    const [placeOfBirth, setPlaceOfBirth] = React.useState<number>(props.author ? props.author.place_of_birth : -1)
+    const [placeOfBirth, setPlaceOfBirth] = React.useState<number>(props.author ? props.author.place_of_birth : null)
 
     const placeState = useSelector((state: RootStore) => state.places)
     React.useEffect(() => {
@@ -67,7 +67,7 @@ const AuthorForm: React.FunctionComponent<IAuthorFormProps> = (props) => {
         <label>Дата смерти</label><input onChange={(e) => setDateOfDeath(e.target.value)} type="text" value={dateOfDeath} />
         <label>Изображение</label><input onChange={(e) => setPicture(e.target.value)} type="text" value={picture} />
         <label>Место рождения</label><select onChange={(e) => setPlaceOfBirth(parseInt(e.target.value))} value={placeOfBirth}>
-            <option value={-1}>Не указано</option>
+            <option value={null}>Не указано</option>
             {places_select}
         </select>
 

@@ -5,13 +5,13 @@ interface IDefaultState {
 }
 const defaultState: IDefaultState = {
     user: {
-        token: 'false',
+        token: '',
         active: false,
         user: null
     }
 }
 
-const authReducer = (state: IDefaultState = defaultState, action:authDispatchTypes ): IDefaultState => {
+const authReducer = (state: IDefaultState = defaultState, action: authDispatchTypes): IDefaultState => {
     switch (action.type) {
         case LOGIN_SUCCESS:
             return {

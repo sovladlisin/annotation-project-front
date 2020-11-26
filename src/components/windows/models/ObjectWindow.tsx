@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getClassAttributes } from '../../../actions/models/classes/classes';
 import { TClassAttribute } from '../../../actions/models/classes/types';
 import { createObjectAttributeValue, getObjectAttributeValues, updateObjectAttributeValue } from '../../../actions/models/objects/objects';
-import { TObjectAttributeValue } from '../../../actions/models/objects/types';
+import { TEntity, TObjectAttributeValue } from '../../../actions/models/objects/types';
+import { createEntity, deleteEntity } from '../../../actions/models/resourses/resources';
 import { TWindow } from '../../../actions/windows/types';
-import { closeWindow } from '../../../actions/windows/windows';
+import { closeWindow, createWindow } from '../../../actions/windows/windows';
 import { RootStore } from '../../../store';
+import { utilsGetClassAttributes } from '../../../utils';
 import ObjectForm from '../../forms/models/ObjectForm';
+import RelationFields from './RelationFields';
 
 export type TDisplayAttr = {
     attr_id: number,
@@ -24,6 +27,7 @@ const ObjectWindow: React.FunctionComponent<IObjectWindowProps> = (props) => {
     const dispatch = useDispatch()
 
     const classState = useSelector((state: RootStore) => state.classes)
+    const primeState = useSelector((state: RootStore) => state)
     const objectState = useSelector((state: RootStore) => state.objects)
     const [performSave, setPerformSave] = React.useState(false)
     const [performDelete, setPerformDelete] = React.useState(false)
@@ -34,16 +38,19 @@ const ObjectWindow: React.FunctionComponent<IObjectWindowProps> = (props) => {
     const object = objectState.objects.find(x => x.id === props.window.model_pk)
     const parent = classState.classes.find(x => x.id === object.parent_class)
 
+
+
+
     React.useEffect(() => {
-        dispatch(getClassAttributes(parent.id))
+        dispatch(getClassAttributes())
         dispatch(getObjectAttributeValues(object.id))
     }, [])
 
     React.useEffect(() => {
-
-        if (classState.attributes.length && classState.attributes[0].related_class === parent.id) {
+        if (classState.attributes.length) {
+            const attrs: TClassAttribute[] = utilsGetClassAttributes(parent.id, classState.attributes, classState.classes)
             var temp_dict: { [id: string]: TDisplayAttr } = {}
-            classState.attributes.map(attr => {
+            attrs.map(attr => {
                 const d_attr: TDisplayAttr = {
                     attr_id: attr.id,
                     attr_val_id: -1,
@@ -73,7 +80,7 @@ const ObjectWindow: React.FunctionComponent<IObjectWindowProps> = (props) => {
 
     React.useEffect(() => {
         dispatch(getObjectAttributeValues(object.id))
-        dispatch(getClassAttributes(parent.id))
+        dispatch(getClassAttributes())
     }, [objectState.new_object_attribute_value])
 
     const save = () => {
@@ -105,6 +112,13 @@ const ObjectWindow: React.FunctionComponent<IObjectWindowProps> = (props) => {
         temp_line.value = value
         setLocalAttributeValueDict(new_dict)
     }
+
+    const addLine = (e) => {
+        e.preventDefault()
+        const entity: TEntity = JSON.parse(e.dataTransfer.getData("entity"))
+        entity.obj = props.window.model_pk
+        dispatch(createEntity(entity))
+    }
     return (
         <>
             <div className='window-control-panel'>
@@ -123,6 +137,28 @@ const ObjectWindow: React.FunctionComponent<IObjectWindowProps> = (props) => {
                     </>
                 })}
             </div>
+            <p className='window-line'>Строки:</p>
+            <div>
+                <div className='add-line-placeholder'
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={(e) => addLine(e)}
+                >
+                    Для связи строки и объекта перетащите номер строки в данное поле</div>
+                <div className='entity-container'>
+                    {primeState.resources.entities.filter(e => e.obj === props.window.model_pk).map(e => {
+                        const res_id = primeState.resources.markups.find(m => m.id === e.markup).text
+                        const res = primeState.resources.resources.find(r => r.id === res_id)
+                        return <div className='entity-line'>
+                            <p>Строка #{e.position_start}</p>
+                            <p>{e.text}</p>
+                            <button className='delete-entity' onClick={() => dispatch(deleteEntity(e.id))}><i className='fas fa-times'></i></button>
+                            <button className='pin-open' onClick={() => dispatch(createWindow({ id: Date.now(), title: res.title, model_name: 'resource', model_pk: res_id, is_hidden: false }))}><i className="far fa-window-maximize"></i></button>
+                        </div>
+                    })}
+
+                </div>
+            </div>
+            <RelationFields window={props.window} />
         </>
     )
 };

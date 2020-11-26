@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'react';
-import { SERVER_URL } from '../../../utils';
+import { handleError, SERVER_URL } from '../../../utils';
+import { CREATE_ALERT } from '../../alerts/types';
 import { tokenConfig } from '../../auth/auth';
 import { CREATE_ENTITY, CREATE_MARKUP, CREATE_OBJECT, CREATE_OBJECT_ATTRIBUTE, DELETE_ENTITY, DELETE_MARKUP, DELETE_OBJECT, GET_MARKUPS_ENTITIES, GET_OBJECTS, GET_OBJECTS_ENTITIES, GET_OBJECT_ATTRIBUTES, GET_TEXTS_MARKUPS, objectDispatchTypes, TEntity, TMarkup, TObject, TObjectAttributeValue, UPDATE_OBJECT, UPDATE_OBJECT_ATTRIBUTE } from './types';
 
@@ -17,7 +18,10 @@ export const getObjects = () => (dispatch: Dispatch<objectDispatchTypes>, getSta
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
     });
 }
 
@@ -30,7 +34,10 @@ export const createEntity = (entity: TEntity) => (dispatch: Dispatch<objectDispa
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
     });
 }
 
@@ -42,7 +49,10 @@ export const deleteEntity = (id: number) => (dispatch: Dispatch<objectDispatchTy
             payload: id
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
     });
 }
 
@@ -56,7 +66,10 @@ export const createMarkup = (markup: TMarkup) => (dispatch: Dispatch<objectDispa
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
     });
 }
 
@@ -78,7 +91,10 @@ export const getMarkupsEntites = (id: number) => (dispatch: Dispatch<objectDispa
             payload: res.data.filter(item => item.markup == id)
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
     });
 
 }
@@ -92,7 +108,10 @@ export const getObjectsEntities = object_id => (dispatch: Dispatch<objectDispatc
             payload: res.data.filter(item => item.obj == object_id)
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
     });
 }
 
@@ -106,7 +125,10 @@ export const updateObject = (obj: TObject) => (dispatch: Dispatch<objectDispatch
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
     });
 }
 
@@ -119,7 +141,10 @@ export const createObject = (obj: TObject) => (dispatch: Dispatch<objectDispatch
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
     });
 }
 
@@ -134,7 +159,10 @@ export const deleteObject = (id: number) => (dispatch: Dispatch<objectDispatchTy
                 payload: id,
             });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        }));
 };
 
 //DELETE MARKUP
@@ -147,7 +175,10 @@ export const deleteMarkup = (id: number) => (dispatch: Dispatch<objectDispatchTy
                 payload: id,
             });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        }));
 };
 
 
@@ -164,7 +195,10 @@ export const updateObjectAttributeValue = (attr: TObjectAttributeValue) => (disp
                 payload: res.data,
             });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        }));
 };
 
 export const createObjectAttributeValue = (attr: TObjectAttributeValue) => (dispatch: Dispatch<objectDispatchTypes>, getState) => {
@@ -178,7 +212,10 @@ export const createObjectAttributeValue = (attr: TObjectAttributeValue) => (disp
                 payload: res.data,
             });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        }));
 };
 
 export const getObjectAttributeValues = (id: number) => (dispatch: Dispatch<objectDispatchTypes>, getState) => {
@@ -190,6 +227,9 @@ export const getObjectAttributeValues = (id: number) => (dispatch: Dispatch<obje
                 payload: res.data.filter(attr => attr.related_object === id),
             });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        }));
 };
 

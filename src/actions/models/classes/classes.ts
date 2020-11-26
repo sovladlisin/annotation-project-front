@@ -3,8 +3,9 @@ import axios from 'axios';
 import { Dispatch } from 'react';
 import { classDispatchTypes, CREATE_CLASS, CREATE_CLASS_ATTRIBUTE, DELETE_CLASS, DELETE_CLASS_ATTRIBUTE, GET_CLASSES, GET_CLASS_ATTRIBUTES, TClass, TClassAttribute, UPDATE_CLASS, UPDATE_CLASS_ATTRIBUTE } from './types';
 import { tokenConfig } from '../../auth/auth';
-import { SERVER_URL } from '../../../utils';
+import { handleError, SERVER_URL } from '../../../utils';
 import { GET_AUTHORS } from '../authors/types';
+import { CREATE_ALERT } from '../../alerts/types';
 
 const action_name = "Класс"
 
@@ -16,7 +17,10 @@ export const getClasses = () => (dispatch: Dispatch<classDispatchTypes>, getStat
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
     });
 }
 
@@ -30,7 +34,10 @@ export const updateClass = (obj: TClass) => (dispatch, getState) => {
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
 
     });
 }
@@ -44,7 +51,10 @@ export const createClass = (obj: TClass) => (dispatch, getState) => {
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
 
     });
 }
@@ -59,7 +69,10 @@ export const deleteClass = (id: number) => (dispatch, getState) => {
                 payload: id,
             });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        }));
 };
 
 
@@ -67,14 +80,17 @@ export const deleteClass = (id: number) => (dispatch, getState) => {
 
 
 //GET CLASSES
-export const getClassAttributes = (class_id: number) => (dispatch: Dispatch<classDispatchTypes>, getState) => {
-    axios.get(SERVER_URL + 'api/classAttributes/', tokenConfig(getState)).then(res => {
+export const getClassAttributes = () => (dispatch: Dispatch<classDispatchTypes>, getState) => {
+    axios.get(SERVER_URL + 'api/classAttributes', tokenConfig(getState)).then(res => {
         dispatch({
             type: GET_CLASS_ATTRIBUTES,
-            payload: res.data.filter(attr => attr.related_class === class_id)
+            payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
     });
 }
 
@@ -88,7 +104,10 @@ export const updateClassAttribute = (obj: TClassAttribute) => (dispatch, getStat
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
 
     });
 }
@@ -102,7 +121,10 @@ export const createClassAttribute = (obj: TClassAttribute) => (dispatch, getStat
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
 
     });
 }
@@ -117,5 +139,8 @@ export const deleteClassAttribute = (id: number) => (dispatch, getState) => {
                 payload: id,
             });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        }));
 };

@@ -17,7 +17,7 @@ const CorpusForm: React.FunctionComponent<ICorpusFormProps> = (props) => {
     const [language, setLanguage] = React.useState(props.corpus ? props.corpus.language : "Не указано")
     const [dialect, setDialect] = React.useState(props.corpus ? props.corpus.dialect : "Не указано")
     const [extras, setExtras] = React.useState(props.corpus ? props.corpus.extras : "Не указано")
-    const [parent, setParent] = React.useState<number>(props.corpus ? props.corpus.parent : -1)
+    const [parent, setParent] = React.useState<number>(props.corpus ? props.corpus.parent : null)
 
     const corpusState = useSelector((state: RootStore) => state.corpuses)
 
@@ -59,7 +59,7 @@ const CorpusForm: React.FunctionComponent<ICorpusFormProps> = (props) => {
         <label>Диатект</label><input onChange={(e) => setDialect(e.target.value)} type="text" value={dialect} />
         <label>Доп. инф.</label><input onChange={(e) => setExtras(e.target.value)} type="text" value={extras} />
         <label>Родитель</label><select onChange={(e) => setParent(parseInt(e.target.value))} id="parent" value={parent}>
-            <option value={-1}>Корень</option>
+            <option value={null}>Корень</option>
             {parent_select}
         </select>
 

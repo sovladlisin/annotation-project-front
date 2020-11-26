@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'react';
-import { SERVER_URL } from '../../../utils';
+import { handleError, SERVER_URL } from '../../../utils';
+import { CREATE_ALERT } from '../../alerts/types';
 import { tokenConfig } from '../../auth/auth';
 import { authorDispatchTypes, CREATE_AUTHOR, DELETE_AUTHOR, GET_AUTHOR, GET_AUTHORS, TAuthor, UPDATE_AUTHOR } from './types';
 
@@ -14,7 +15,10 @@ export const getAuthors = () => (dispatch: Dispatch<authorDispatchTypes>, getSta
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
     });
 }
 
@@ -26,7 +30,10 @@ export const getAuthor = (id: number) => (dispatch: Dispatch<authorDispatchTypes
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
     });
 }
 
@@ -41,7 +48,10 @@ export const updateAuthor = (author: TAuthor) => (dispatch: Dispatch<authorDispa
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
     });
 }
 
@@ -54,7 +64,10 @@ export const createAuthor = (author: TAuthor) => (dispatch: Dispatch<authorDispa
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
 
     });
 }
@@ -69,5 +82,8 @@ export const deleteAuthor = (id: number) => (dispatch: Dispatch<authorDispatchTy
                 payload: id,
             });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        }));
 };

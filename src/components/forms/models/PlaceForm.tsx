@@ -26,6 +26,7 @@ const PlaceForm: React.FunctionComponent<IPlaceFormProps> = (props) => {
 
     React.useEffect(() => {
         if (props.saveTrigger) {
+
             const new_place: TPlace = {
                 name: name,
                 location: location,

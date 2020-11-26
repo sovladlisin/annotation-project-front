@@ -1,4 +1,8 @@
-export const SERVER_URL = 'http://localhost:8000/'
+import { TAlert } from './actions/alerts/types'
+import { TClass, TClassAttribute } from './actions/models/classes/types'
+
+// export const SERVER_URL = 'http://localhost:8000/'
+export const SERVER_URL = 'https://annotation-project-backend.herokuapp.com/'
 
 export type TPin = {
     model_name: string,
@@ -38,7 +42,61 @@ export const buildTree = (data) => {
             }
         }
     }
-    console.log(tree)
     return tree;
 
+}
+
+
+export const onlyUnique = (value, index, self) => {
+    return self.indexOf(value) === index;
+}
+
+
+export const utilsGetClassAttributes = (class_id: number, class_attributes: TClassAttribute[], classes: TClass[], result: TClassAttribute[] = []) => {
+    result = result.concat(class_attributes.filter(attr => attr.related_class === class_id))
+    var parent: number = classes.find(c => c.id === class_id).parent
+    if (parent === null)
+        return result
+    return utilsGetClassAttributes(parent, class_attributes, classes, result)
+}
+
+
+export const getColorForModel = (model: string): string => {
+    switch (model) {
+        case 'object':
+            return '#ffba93'
+        case 'place':
+            return '#9f5f80'
+        case 'author':
+            return '#583d72'
+        case 'class':
+            return '#ff8e71'
+        case 'corpus':
+            return '#34626c'
+        case 'resource':
+            return '#ff6766'
+
+        default:
+            return 'white';
+    }
+}
+
+export const handleError = (err): TAlert => {
+    var message = ''
+    if (err.response) {
+        switch (err.response.status) {
+            case 401:
+                message = 'Ошибка авторизации. Пожалуйста, войдите в систему'
+                break;
+
+            case 500:
+                message = 'Ошибка сервера, обновите страницу и попробуйте операцию снова'
+                break;
+
+            default:
+                message = err.response.data.detail
+                break;
+        }
+    }
+    return { type: err.response.status, message }
 }

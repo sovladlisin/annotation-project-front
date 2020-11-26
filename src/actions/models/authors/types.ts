@@ -4,6 +4,7 @@ export const GET_AUTHOR = 'GET_AUTHOR'
 export const DELETE_AUTHOR = 'DELETE_AUTHOR'
 export const UPDATE_AUTHOR = 'UPDATE_AUTHOR'
 export const CREATE_AUTHOR = 'CREATE_AUTHOR'
+import { TCreateAlert } from '../../alerts/types'
 
 
 export type TAuthor = {
@@ -39,4 +40,4 @@ export interface IGetAuthors {
     payload: TAuthor[]
 }
 
-export type authorDispatchTypes = IGetAuthors|IGetAuthor|IUpdateAuthor|IDeleteAuthor|ICreateAuthor
+export type authorDispatchTypes = TCreateAlert | IGetAuthors | IGetAuthor | IUpdateAuthor | IDeleteAuthor | ICreateAuthor

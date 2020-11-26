@@ -4,6 +4,7 @@ import { TWindow } from '../../../actions/windows/types';
 import { closeWindow } from '../../../actions/windows/windows';
 import { RootStore } from '../../../store';
 import CorpusForm from '../../forms/models/CorpusForm';
+import RelationFields from './RelationFields';
 
 interface ICorpusWindowProps {
     window: TWindow
@@ -34,6 +35,7 @@ const CorpusWindow: React.FunctionComponent<ICorpusWindowProps> = (props) => {
             <div className='model-form'>
                 <CorpusForm corpus={corpus} saveTrigger={performSave} onComplete={() => { setPerformDelete(false); setPerformSave(false) }} deleteTrigger={performDelete} />
             </div>
+            <RelationFields window={props.window} />
         </>
     )
 };

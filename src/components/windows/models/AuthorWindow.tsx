@@ -4,6 +4,7 @@ import { TWindow } from '../../../actions/windows/types';
 import { closeWindow } from '../../../actions/windows/windows';
 import { RootStore } from '../../../store';
 import AuthorForm from '../../forms/models/AuthorForm';
+import RelationFields from './RelationFields';
 
 interface IAuthorWindowProps {
     window: TWindow
@@ -31,13 +32,10 @@ const AuthorWindow: React.FunctionComponent<IAuthorWindowProps> = (props) => {
                 <button onClick={save}><i className="fas fa-save"></i></button>
                 <button onClick={deleteObj}><i className="fas fa-trash"></i></button>
             </div>
-            <div className='window-control-panel'>
-                <button onClick={save}>Сохранить</button>
-                <button onClick={deleteObj}>Удалить</button>
-            </div>
             <div className='model-form'>
                 <AuthorForm author={author} saveTrigger={performSave} onComplete={() => { setPerformDelete(false); setPerformSave(false) }} deleteTrigger={performDelete} />
             </div>
+            <RelationFields window={props.window} />
         </>
     )
 };

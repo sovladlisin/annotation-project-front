@@ -11,6 +11,8 @@ import './src/static/css/tree.css'
 import './src/static/css/corpus-info.css'
 import './src/static/css/window.css'
 import './src/static/css/ontology.css'
+import './src/static/css/alerts.css'
+import './src/static/css/editor.css'
 
 import { persistStore } from 'redux-persist'
 import store from './src/store'

@@ -1,3 +1,5 @@
+import { TCreateAlert } from '../../alerts/types'
+
 export const GET_CLASSES = 'GET_CLASSES'
 export const UPDATE_CLASS = 'UPDATE_CLASS'
 
@@ -62,5 +64,5 @@ export interface TGetClassAttributes {
     payload: TClassAttribute[]
 }
 
-export type classDispatchTypes = TGetClassAttributes | TUpdateClassAttribute | TDeleteClassAttribute | TCreateClassAttribute | IGetClasses | IUpdateClass | IDeleteClass | ICreateClass
+export type classDispatchTypes = TCreateAlert | TGetClassAttributes | TUpdateClassAttribute | TDeleteClassAttribute | TCreateClassAttribute | IGetClasses | IUpdateClass | IDeleteClass | ICreateClass
 

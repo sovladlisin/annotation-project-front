@@ -4,14 +4,22 @@ import ClassForm from '../forms/models/ClassForm';
 import CorpusForm from '../forms/models/CorpusForm';
 import ObjectForm from '../forms/models/ObjectForm';
 import PlaceForm from '../forms/models/PlaceForm';
+import RelationForm from '../forms/models/RelationForm';
+import ResourceForm from '../forms/models/ResourceForm';
+import ResourceTypeForm from '../forms/models/ResourceTypeForm';
+import { useOnClickOutside } from '../utils/HandleClickOutside';
 
 interface IAddContainerProps {
     model_name: string,
-    corpus_id?: number
+    corpus_id?: number,
+    onClose: () => void
 }
 
 const AddContainer: React.FunctionComponent<IAddContainerProps> = (props) => {
     const [saveTrigger, setSaveTrigger] = React.useState(false)
+
+    const ref = React.useRef()
+    useOnClickOutside(ref, () => { props.onClose() })
 
     const renderForm = () => {
         switch (props.model_name) {
@@ -25,6 +33,12 @@ const AddContainer: React.FunctionComponent<IAddContainerProps> = (props) => {
                 return <PlaceForm deleteTrigger={null} saveTrigger={saveTrigger} onComplete={() => setSaveTrigger(false)} />
             case 'corpus':
                 return <CorpusForm deleteTrigger={null} saveTrigger={saveTrigger} onComplete={() => setSaveTrigger(false)} />
+            case 'relation':
+                return <RelationForm deleteTrigger={null} saveTrigger={saveTrigger} onComplete={() => setSaveTrigger(false)} />
+            case 'resourceType':
+                return <ResourceTypeForm deleteTrigger={null} saveTrigger={saveTrigger} onComplete={() => setSaveTrigger(false)} />
+            case 'resource':
+                return <ResourceForm corpusId={props.corpus_id} deleteTrigger={null} saveTrigger={saveTrigger} onComplete={() => setSaveTrigger(false)} />
             default:
                 return <></>;
         }
@@ -36,10 +50,10 @@ const AddContainer: React.FunctionComponent<IAddContainerProps> = (props) => {
     }
 
     return <>
-        <div className='ontology-add-container'>
+        {props.model_name.length != 0 && <div className='ontology-add-container' ref={ref}>
             {renderForm()}
-            <button onClick={save}>Сохранить</button>
-        </div>
+            {props.model_name.length && <button onClick={save}>Добавить</button>}
+        </div>}
     </>;
 };
 

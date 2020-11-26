@@ -16,7 +16,7 @@
 }
 
 .corpus-ontology-options button {
-    width: 300px;
+    width: 245px;
     text-align: left;
     padding: 5px;
     margin: 5px;
@@ -24,14 +24,13 @@
 
 .corpus-ontology-content {
     width: 700px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 900px;
+    height: 500px;
     overflow-y: auto;
 }
 
 .entity-list {
     width: 300px;
+    position: relative;
 }
 
 .entity-list input {
@@ -43,13 +42,23 @@
 .tree {
     padding: 0 20px;
     width: 300px;
+    overflow: auto;
+    max-height: 400px;
+    position: relative;
 }
 
 .ontology-add-container {
     display: grid;
-    gap: 0px 3px;
-    height: fit-content;
-    grid-template-columns: 70px 1fr;
+    grid-template-columns: 155px 1fr;
+    position: fixed;
+    width: 600px;
+    height: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-box-shadow: 0px 5px 5px 0px rgb(35,45,65, 0.3);
+    -moz-box-shadow: 0px 5px 5px 0px rgb(35,45,65, 0.3);
+    box-shadow: 0px 5px 5px 0px rgb(35,45,65, 0.3);
 }
 
 .ontology-add-container label {
@@ -57,8 +66,9 @@
     line-height: 30px;
     background: gainsboro;
     font-size: 10pt;
-    width: 70px;
+    width: 135px;
     text-align: right;
+    padding: 0 10px;
 }
 
 .ontology-add-container input {
@@ -85,4 +95,50 @@
     color: white;
     grid-column: auto / span 2;
     height: 30px;
+}
+button.create-entity {
+    position: absolute;
+    top: 6px;
+    right: 0;
+    height: 35px;
+    width: 35px;
+    color: white;
+    padding: 0px;
+    font-size: 9pt;
+    background: #20967c;
+}
+
+.upload-doc-container {
+    position: fixed;
+    background: white;
+    width: 300px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    padding: 30px;
+}
+
+.upload-doc-container input {
+    margin: 10px;
+}
+
+.upload-doc-container button {
+    background: #20967c;
+    color: white;
+    width: 280px;
+    padding: 10px;
+    margin: 10px;
+}
+button.upload-docx {
+    background: #ff6766;
+    color: white;
+    padding: 5px 0;
+}
+
+.resource-type-filter button {
+    background: #232d41;
+    color: white;
+    margin: 5px;
+    font-size: 9pt;
+    padding: 5px;
 }

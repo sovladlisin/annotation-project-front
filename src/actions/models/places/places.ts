@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 import { Dispatch } from 'react';
-import { SERVER_URL } from '../../../utils';
+import { handleError, SERVER_URL } from '../../../utils';
+import { CREATE_ALERT } from '../../alerts/types';
 import { tokenConfig } from '../../auth/auth';
 import { CREATE_PLACE, DELETE_PLACE, GET_PLACES, placeDispatchTypes, TPlace, UPDATE_PLACE } from './types';
 
@@ -16,7 +17,10 @@ export const getPlaces = () => (dispatch: Dispatch<placeDispatchTypes>, getState
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
     });
 }
 
@@ -30,7 +34,10 @@ export const updatePlace = (place: TPlace) => (dispatch: Dispatch<placeDispatchT
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
     });
 }
 
@@ -43,7 +50,10 @@ export const createPlace = obj => (dispatch: Dispatch<placeDispatchTypes>, getSt
             payload: res.data
         });
     }).catch((err) => {
-        console.log(err)
+        dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        })
 
     });
 }
@@ -58,5 +68,8 @@ export const deletePlace = (id) => (dispatch: Dispatch<placeDispatchTypes>, getS
                 payload: id,
             });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => dispatch({
+            type: CREATE_ALERT,
+            payload: handleError(err)
+        }));
 };

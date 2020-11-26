@@ -1,15 +1,18 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createClassAttribute } from '../../../actions/models/classes/classes';
+import { createAlert } from '../../../actions/alerts/alerts';
+import { createClassAttribute, deleteClassAttribute, getClassAttributes } from '../../../actions/models/classes/classes';
 import { TClassAttribute } from '../../../actions/models/classes/types';
 import { createObject } from '../../../actions/models/objects/objects';
 import { TObject } from '../../../actions/models/objects/types';
 import { TWindow } from '../../../actions/windows/types';
 import { closeWindow } from '../../../actions/windows/windows';
 import { RootStore } from '../../../store';
-import { TPin } from '../../../utils';
+import { onlyUnique, TPin, utilsGetClassAttributes } from '../../../utils';
 import ClassForm from '../../forms/models/ClassForm';
 import Pin from '../../layout/Pin';
+import Selector from '../../redactors/Selector';
+import RelationFields from './RelationFields';
 
 interface IClassWindowProps {
     window: TWindow
@@ -25,11 +28,12 @@ const ClassWindow: React.FunctionComponent<IClassWindowProps> = (props) => {
     const [localAttributes, setLocalAttributes] = React.useState<TClassAttribute[]>([])
     const [performDelete, setPerformDelete] = React.useState(false)
 
-    const [localClassParents, setLocalClassParents] = React.useState<{ [id: string]: number }>({})
-    const [localClassChildren, setLocalClassChildren] = React.useState<{ [id: string]: number }>({})
+    const [localClassParents, setLocalClassParents] = React.useState<{ [id: string]: number[] }>({})
+    const [localClassChildren, setLocalClassChildren] = React.useState<{ [id: string]: number[] }>({})
 
-    const [newClassChildren, newLocalClassChildren] = React.useState<{ [id: string]: number }>({})
-    const [newClassParents, newLocalClassParents] = React.useState<{ [id: string]: number }>({})
+    const [newClassChildren, newLocalClassChildren] = React.useState<{ [id: string]: number[] }>({})
+    const [newClassParents, newLocalClassParents] = React.useState<{ [id: string]: number[] }>({})
+
 
 
     const s_class = classState.classes.find(x => x.id === props.window.model_pk)
@@ -41,7 +45,12 @@ const ClassWindow: React.FunctionComponent<IClassWindowProps> = (props) => {
             related_class: props.window.model_pk
         }
         dispatch(createClassAttribute(new_attribute))
+        dispatch(getClassAttributes())
     }
+
+    React.useEffect(() => {
+        dispatch(getClassAttributes())
+    }, [])
 
     const addObject = () => {
         const name = Date.now()
@@ -53,8 +62,10 @@ const ClassWindow: React.FunctionComponent<IClassWindowProps> = (props) => {
     }
 
     React.useEffect(() => {
-        if (classState.attributes.length && classState.attributes[0].related_class === props.window.model_pk)
-            setLocalAttributes(classState.attributes)
+        if (classState.attributes.length) {
+            setLocalAttributes(utilsGetClassAttributes(props.window.model_pk, classState.attributes, classState.classes))
+        }
+
     }, [classState.attributes])
 
     const deleteObj = () => {
@@ -62,34 +73,10 @@ const ClassWindow: React.FunctionComponent<IClassWindowProps> = (props) => {
         setPerformDelete(true)
     }
 
-    React.useEffect(() => {
-        const parents = relationState.class_relations.filter(r => r.child === s_class.id)
-        const children = relationState.class_relations.filter(r => r.parent === s_class.id)
-
-        var localParents = {}
-        parents.map(rel => {
-            const name = relationState.relations.find(r => r.id === rel.relation).name
-            if (localParents.hasOwnProperty(name) === false) localParents[name] = []
-            localParents[name] = [...localParents[name], rel.parent]
-        })
-
-        var localChildren = {}
-        children.map(rel => {
-            const name = relationState.relations.find(r => r.id === rel.relation).name
-            if (localChildren.hasOwnProperty(name) === false) localChildren[name] = []
-            localChildren[name] = [...localChildren[name], rel.child]
-        })
-
-        setLocalClassChildren(localChildren)
-        setLocalClassParents(localParents)
-
-    }, [relationState.class_relations])
-
-
-
     const save = () => {
         setPerformSave(true)
     }
+
     return (
         <>
             <div className='window-control-panel'>
@@ -120,22 +107,10 @@ const ClassWindow: React.FunctionComponent<IClassWindowProps> = (props) => {
                         name: attr.name,
                         model_name: 'class_attribute'
                     }
-                    return <Pin pin={pin} />
+                    return <Pin pin={pin} onDelete={() => dispatch(deleteClassAttribute(attr.id))} />
                 })}
             </div>
-            {/* <p className='window-line'>Отношения: <button className='window-add' onClick={() => { }}><i className="fas fa-plus"></i></button></p>
-            <div className='window-placeholder'>
-                {localAttributes.map(attr => {
-                    const pin: TPin = {
-                        model_pk: attr.id,
-                        name: attr.name,
-                        model_name: 'class_attribute'
-                    }
-                    return <Pin pin={pin} />
-                })}
-            </div> */}
-
-
+            <RelationFields window={props.window} />
         </>
     )
 };

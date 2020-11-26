@@ -7,7 +7,7 @@ import AuthorForm from '../forms/models/AuthorForm'
 import { RootStore } from '../../store';
 import CorpusForm from '../forms/models/CorpusForm';
 import ClassForm from '../forms/models/ClassForm';
-import { TPin } from '../../utils';
+import { getColorForModel, TPin } from '../../utils';
 import Pin from '../layout/Pin';
 import ObjectForm from '../forms/models/ObjectForm';
 import ClassWindow from './models/ClassWindow';
@@ -15,6 +15,11 @@ import ObjectWindow from './models/ObjectWindow';
 import ClassAttributeWindow from './models/ClassAttributeWindow';
 import AuthorWindow from './models/AuthorWindow';
 import CorpusWindow from './models/CorpusWindow';
+import RelationWindow from './models/RelationWindow';
+import PlaceWindow from './models/PlaceWindow';
+import ResourceWindow from './models/ResourceWindow';
+import ResourceTypeWindow from './models/ResourceTypeWindow';
+import MarkupWindow from './models/MarkupWindow';
 
 interface IWindowProps {
     window: TWindow
@@ -42,6 +47,8 @@ const Window: React.FunctionComponent<IWindowProps> = (props) => {
         switch (props.window.model_name) {
             case 'author':
                 return <AuthorWindow window={props.window} />
+            case 'place':
+                return <PlaceWindow window={props.window} />
             case 'corpus':
                 return <CorpusWindow window={props.window} />
             case 'object':
@@ -50,6 +57,14 @@ const Window: React.FunctionComponent<IWindowProps> = (props) => {
                 return <ClassAttributeWindow window={props.window} />
             case 'class':
                 return <ClassWindow window={props.window} />
+            case 'relation':
+                return <RelationWindow window={props.window} />
+            case 'resource':
+                return <ResourceWindow window={props.window} />
+            case 'resourceType':
+                return <ResourceTypeWindow window={props.window} />
+            case 'markup':
+                return <MarkupWindow window={props.window} />
             default:
                 return <></>
         }
@@ -79,6 +94,7 @@ const Window: React.FunctionComponent<IWindowProps> = (props) => {
                     <p>{props.window.title}</p>
                     <button onClick={() => dispatch(closeWindow(props.window.id))}><i className="fas fa-times"></i></button>
                     <button onClick={() => dispatch(collapseWindow(props.window.id))}><i className="far fa-eye"></i></button>
+                    <div className='window-header-highlight' style={{ background: getColorForModel(props.window.model_name) }}></div>
                 </div>
                 <div className="window-hover-notification" id={"notification-" + props.window.id}>
                     <p><i className="far fa-check-circle"></i></p>

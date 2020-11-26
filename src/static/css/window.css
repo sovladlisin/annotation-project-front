@@ -97,6 +97,7 @@
     bottom: 0;
     right: 0;
     margin: 30px;
+    z-index: 9999;
 }
 
 .hidden-windows-container button {
@@ -145,4 +146,79 @@ button.window-add {
     height: 50px;
     width: 50px;
     color: white;
+}
+
+.selector {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background: white;
+    padding: 50px;
+    height: 200px;
+    width: 200px;
+    -webkit-box-shadow: 0px 5px 5px 2px  rgb(35,45,65, 0.3);
+    -moz-box-shadow: 0px 5px 5px 2px  rgb(35,45,65, 0.3);
+    box-shadow: 0px 5px 5px 2px rgb(35,45,65, 0.3);
+}
+
+.file-input>* {
+    float: left;
+    height: 30px;
+    font-size: 9pt;
+    line-height: 30px;
+    margin-right: 10px;
+}
+
+.file-input a {
+    background: #20967c;
+    color: white;
+    padding: 0 10px;
+    margin-left: 10px;
+}
+
+.file-input button {
+    background: #ff6766;
+    color: white;
+    padding: 0 10px;
+    margin-left: 10px;
+}
+
+.window-control-panel a {
+    color: white;
+}
+.add-line-placeholder {
+    width: 400px;
+    background: gainsboro;
+    margin: 10px;
+    padding: 10px;
+}
+
+.entity-line {
+    margin: 10px;
+    padding: 10px;
+    font-size: 9pt;
+    display: grid;
+    grid-template-columns: 100px 1fr 30px 30px;
+    background: gainsboro;
+}
+
+.entity-container {
+    max-height: 135px;
+    overflow-y: auto;
+}
+
+.window-header-highlight {
+    width: 800px;
+    height: 5px;
+    position: absolute;
+    bottom: 0;
+}
+
+img.resource-img {
+    height: 400px;
+    margin: 10px auto;
+    object-fit: scale-down;
+    position: relative;
+    display: block;
 }

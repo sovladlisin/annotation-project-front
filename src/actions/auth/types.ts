@@ -1,7 +1,7 @@
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAIL = 'LOGIN_FAIL'
 export const LOGOUT = 'LOGOUT'
-
+import { TCreateAlert } from '../alerts/types'
 export type TUser = {
     email: string,
     id: number,
@@ -27,4 +27,4 @@ export interface ILogout {
     type: typeof LOGOUT
 }
 
-export type authDispatchTypes = ILoginSuccess | ILoginFail |ILogout
+export type authDispatchTypes = TCreateAlert | ILoginSuccess | ILoginFail | ILogout

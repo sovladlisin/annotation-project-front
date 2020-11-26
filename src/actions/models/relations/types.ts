@@ -1,34 +1,34 @@
 
 export const CREATE_RELATION = 'CREATE_RELATION'
 export const DELETE_RELATION = 'DELETE_RELATION'
-export const GET_TEXTS_RELATIONS = 'GET_TEXTS_RELATIONS'
+export const UPDATE_RELATION = 'UPDATE_RELATION'
 export const GET_RELATIONS = 'GET_RELATIONS'
 
-export const GET_OBJECTS_RELATIONS = 'GET_OBJECTS_RELATIONS'
-export const CREATE_OBJECT_RELATION = 'CREATE_OBJECT_RELATION'
-export const DELETE_OBJECT_RELATION = 'DELETE_OBJECT_RELATION'
+export const GET_LINKS = 'GET_LINKS'
+export const ADD_LINK = 'ADD_LINK'
 
-export const GET_CLASS_RELATIONS = 'GET_CLASS_RELATIONS'
-export const CREATE_CLASS_RELATION = 'CREATE_CLASS_RELATION'
-export const DELETE_CLASS_RELATION = 'DELETE_CLASS_RELATION'
-
+import { TCreateAlert } from '../../alerts/types'
 
 export type TRelation = {
     id?: number,
     name: string
 }
 
-export type TEntityRelation = {
-    id?: number,
-    parent: number,
-    child: number,
-    relation: number
+export type TNewLink = {
+    relation: number,
+    parent_model_pk: number,
+    parent_model_name: string,
+    child_model_pk: number,
+    child_model_name: string,
 }
-
 
 //Relations ---------------------------------------
 export interface ICreateRelation {
     type: typeof CREATE_RELATION,
+    payload: TRelation
+}
+export interface IUpdateRelation {
+    type: typeof UPDATE_RELATION,
     payload: TRelation
 }
 export interface IDeleteRelation {
@@ -39,40 +39,15 @@ export interface IGetRelations {
     type: typeof GET_RELATIONS,
     payload: TRelation[]
 }
-export interface IGetTextsRelations {
-    type: typeof GET_TEXTS_RELATIONS,
-    payload: TRelation[]
-}
-
-//Object relations-----------------------------------
-export interface ICreateObjectRelation {
-    type: typeof CREATE_OBJECT_RELATION,
-    payload: TEntityRelation
-}
-export interface IDeleteObjectRelation {
-    type: typeof DELETE_OBJECT_RELATION,
-    payload: number
-}
-export interface IGetObjectsRelations {
-    type: typeof GET_OBJECTS_RELATIONS,
-    payload: TEntityRelation[]
-}
-
-//Class relations-----------------------------------
-export interface ICreateClassRelation {
-    type: typeof CREATE_CLASS_RELATION,
-    payload: TEntityRelation
-}
-export interface IDeleteClassRelation {
-    type: typeof DELETE_CLASS_RELATION,
-    payload: number
-}
-export interface IGetClassesRelations {
-    type: typeof GET_CLASS_RELATIONS,
-    payload: TEntityRelation[]
-}
 
 
+export interface IGetLinks {
+    type: typeof GET_LINKS,
+    payload: {}
+}
+export interface IAddLink {
+    type: typeof ADD_LINK,
+    payload: {}
+}
 
-
-export type relationDispatchTypes = IGetRelations | ICreateObjectRelation | IDeleteObjectRelation | IGetObjectsRelations | ICreateClassRelation | IDeleteClassRelation | IGetClassesRelations | ICreateRelation | IDeleteRelation | IGetTextsRelations | IGetObjectsRelations
+export type relationDispatchTypes = TCreateAlert | IAddLink | IGetLinks | IUpdateRelation | IGetRelations | ICreateRelation | IDeleteRelation 

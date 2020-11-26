@@ -8,6 +8,7 @@ export const GET_OBJECTS_ENTITIES = 'GET_OBJECTS_ENTITIES'
 export const CREATE_ENTITY = 'CREATE_ENTITY'
 export const DELETE_ENTITY = 'DELETE_ENTITY'
 
+import { TCreateAlert } from '../../alerts/types'
 
 
 export const CREATE_MARKUP = 'CREATE_MARKUP'
@@ -120,5 +121,5 @@ export interface IGetObjectAttributes {
     payload: TObjectAttributeValue[]
 }
 
-export type objectDispatchTypes = IGetObjectAttributes | IUpdateObjectAttribute | ICreateObjectAttribute | IGetObjectsEntities | IGetMarkupsEntities | IGetTextsMarkups | IGetObjects | IUpdateObject | IDeleteObject | ICreateObject | ICreateEntity | IDeleteEntity | ICreateMarkup | IDeleteMarkup
+export type objectDispatchTypes = TCreateAlert | IGetObjectAttributes | IUpdateObjectAttribute | ICreateObjectAttribute | IGetObjectsEntities | IGetMarkupsEntities | IGetTextsMarkups | IGetObjects | IUpdateObject | IDeleteObject | ICreateObject | ICreateEntity | IDeleteEntity | ICreateMarkup | IDeleteMarkup
 

@@ -16,7 +16,7 @@ interface IObjectFormProps {
 const ObjectForm: React.FunctionComponent<IObjectFormProps> = (props) => {
     const dispatch = useDispatch()
     const [name, setName] = React.useState(props.object ? props.object.name : "Не указано")
-    const [parent, setParent] = React.useState<number>(props.object ? props.object.parent_class : -1)
+    const [parent, setParent] = React.useState<number>(props.object ? props.object.parent_class : null)
 
     const corpusState = useSelector((state: RootStore) => state.corpuses)
     const localParent = corpusState.corpus_classes.find(cl => cl.id === props.object.parent_class)
@@ -52,7 +52,7 @@ const ObjectForm: React.FunctionComponent<IObjectFormProps> = (props) => {
     return <>
         <label>Имя</label><input onChange={(e) => setName(e.target.value)} type="text" value={name} />
         <label>Класс</label><select onChange={(e) => setParent(parseInt(e.target.value))} value={parent}>
-            <option value={-1}>Не указано</option>
+            <option value={null}>Не указано</option>
             {class_select}
         </select>
 

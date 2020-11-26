@@ -16,7 +16,7 @@ interface IClassFormProps {
 const ClassForm: React.FunctionComponent<IClassFormProps> = (props) => {
     const dispatch = useDispatch()
     const [name, setName] = React.useState(props.class ? props.class.name : "Не указано")
-    const [parent, setParent] = React.useState<number>(props.class ? props.class.parent : 0)
+    const [parent, setParent] = React.useState<number>(props.class ? props.class.parent : null)
 
     const corpusState = useSelector((state: RootStore) => state.corpuses)
 
@@ -54,7 +54,7 @@ const ClassForm: React.FunctionComponent<IClassFormProps> = (props) => {
         <label>Имя</label><input onChange={(e) => setName(e.target.value)} type="text" value={name} />
         <label>Корпус</label><p>{props.corpusId}</p>
         <label>Родитель</label><select onChange={(e) => setParent(parseInt(e.target.value))} value={parent}>
-            <option value={0}>Корень</option>
+            <option value={null}>Корень</option>
             {class_select}
         </select>
 

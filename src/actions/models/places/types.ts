@@ -2,12 +2,13 @@ export const GET_PLACES = 'GET_PLACES'
 export const UPDATE_PLACE = 'UPDATE_PLACE'
 
 export const CREATE_PLACE = 'CREATE_PLACE'
-export const DELETE_PLACE= 'DELETE_PLACE'
+export const DELETE_PLACE = 'DELETE_PLACE'
+import { TCreateAlert } from '../../alerts/types'
 
 export type TPlace = {
-    id?:number,
-    name:string,
-    location:string,
+    id?: number,
+    name: string,
+    location: string,
 }
 
 export interface ICreatePlace {
@@ -22,10 +23,10 @@ export interface IUpdatePlace {
     type: typeof UPDATE_PLACE,
     payload: TPlace
 }
-export interface IGetPlaces{
+export interface IGetPlaces {
     type: typeof GET_PLACES,
     payload: TPlace[]
 }
 
-export type placeDispatchTypes = IGetPlaces|IUpdatePlace|IDeletePlace|ICreatePlace
+export type placeDispatchTypes = TCreateAlert | IGetPlaces | IUpdatePlace | IDeletePlace | ICreatePlace
 

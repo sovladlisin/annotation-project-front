@@ -1,0 +1,159 @@
+.text-container {
+    width: 1000px;
+    margin: 10px auto;
+}
+
+.text-line {
+    width: 1000px;
+    position: relative;
+    margin: 5px 0;
+    font-size: 10pt;
+}
+
+.main-line {
+    display: grid;
+    grid-template-columns: 30px 1fr 1fr;
+    gap: 5px;
+}
+
+.main-line p {
+    background: white;
+    padding: 5px;
+}
+
+.text-line button {
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    color: #f0f0f0;
+    transform: translate(0%,-50%);
+    padding: 0 10px;
+}
+.text-line button:hover{
+    color: #20967c;
+}
+
+.commentary-window {
+    position: fixed;
+    z-index: 99;
+    left: 50%;
+    top: 50%;
+    width: 300px;
+    height: 300px;
+    transform: translate(-50%,-50%);
+    padding: 30px;
+    background: white;
+}
+
+.commentary-window button {
+    background: #20967c;
+    color: white;
+    width: 300px;
+    padding: 10px;
+}
+
+.commentary-window textarea {
+    width: 300px;
+    background: gainsboro;
+    height: 280px;
+}
+
+
+.nav-bar {
+    width: 1000px;
+    height: 30px;
+    background: #232d41;
+    color: white;
+}
+
+.nav-bar>* {
+    float: left;
+    line-height: 30px;
+    font-size: 9pt;
+}
+
+.nav-bar input {padding-left: 5px;width: 40px;}
+
+.nav-bar p {
+    margin: 0 10px;
+}
+
+.text-editor {
+    width: 1000px;
+    margin: 10px auto;
+}
+
+.text-editor>p {
+    margin: 10px 0;
+    width: 990px;
+    background: gainsboro;
+    padding: 10px 5px;
+}
+
+.markups {
+    width: 1000px;
+    margin: 10px;
+    height: 50px;
+}
+
+.markups>button {
+    height: 30px;
+    width: 30px;
+    margin: 10px;
+}
+.markup-highlight {
+    width: 190px;
+    height: 35px;
+    float: left;
+    margin-right: 15px;
+}
+p.line-index {
+    position: relative;
+    cursor: pointer;
+}
+
+p.extra-line-info {
+    position: absolute;
+    top: -31px;
+    opacity: 0;
+    left: 36px;
+    z-index: 99;
+    background: green;
+}
+p.line-index:hover p.extra-line-info {
+    opacity: 0.9;
+    transition: 0.3s
+}
+p.link-line-info {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    background: white;
+    font-size: 8pt;
+    opacity: 0.95;
+    height: 24px;
+    line-height: 24px;
+}
+
+span.child {background: #20967c;color: white;padding: 5px;}
+
+span.parent {
+    background: #ff6766;
+    color: white;
+    padding: 5px;
+}
+
+p.link-line-info>* {margin: 0 5px;}
+
+.resource-pin-container {
+    height: 50px;
+}
+button#save-comments {
+    position: fixed;
+    background: #ff6766;
+    color: white;
+    bottom: 25px;
+    right: 20px;
+    padding: 10px;
+    z-index: 999;
+}
