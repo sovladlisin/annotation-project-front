@@ -215,10 +215,17 @@ export const deleteResourceType = (id: number) => (dispatch: Dispatch<resourceDi
 
 //upload docx, pk-corpus_pk
 export const uploadDocx = (pk: number, file: File) => (dispatch: Dispatch<resourceDispatchTypes>, getState) => {
+    dispatch({
+        type: CREATE_ALERT,
+        payload: { type: 200, message: 'Выполняется загрузка и обработка текста, пожалуйста подождите' }
+    })
     var formData = new FormData();
     formData.append("attached_file", file);
     axios.post(SERVER_URL + `api/uploadDocx/${pk}/`, formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(res => {
-
+        dispatch({
+            type: CREATE_ALERT,
+            payload: { type: 200, message: 'Текст успешно загружен, пожалуйста, обновите страницу' }
+        })
     }).catch((err) => {
         dispatch({
             type: CREATE_ALERT,
