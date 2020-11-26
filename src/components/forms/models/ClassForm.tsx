@@ -4,6 +4,7 @@ import { createClass, deleteClass, getClasses, updateClass } from '../../../acti
 import { TClass } from '../../../actions/models/classes/types';
 import { getCorpusClasses, getCorpuses } from '../../../actions/models/corpuses/corpuses';
 import { RootStore } from '../../../store';
+import { getPrimeCorpusParent } from '../../../utils'
 
 interface IClassFormProps {
     class?: TClass,
@@ -20,6 +21,8 @@ const ClassForm: React.FunctionComponent<IClassFormProps> = (props) => {
 
     const corpusState = useSelector((state: RootStore) => state.corpuses)
 
+    const primeCorpus = getPrimeCorpusParent(props.corpusId, corpusState.corpuses)
+
     React.useEffect(() => {
         dispatch(getCorpusClasses(props.corpusId))
     }, [])
@@ -35,7 +38,7 @@ const ClassForm: React.FunctionComponent<IClassFormProps> = (props) => {
         if (props.saveTrigger) {
             const new_class: TClass = {
                 parent: parent === 0 ? null : parent,
-                corpus: props.corpusId,
+                corpus: primeCorpus,
                 name: name,
                 id: props.class ? props.class.id : null
             }
@@ -52,7 +55,7 @@ const ClassForm: React.FunctionComponent<IClassFormProps> = (props) => {
 
     return <>
         <label>Имя</label><input onChange={(e) => setName(e.target.value)} type="text" value={name} />
-        <label>Корпус</label><p>{props.corpusId}</p>
+        <label>Корпус</label><p>{primeCorpus}</p>
         <label>Родитель</label><select onChange={(e) => setParent(parseInt(e.target.value))} value={parent}>
             <option value={null}>Корень</option>
             {class_select}

@@ -7,7 +7,7 @@ import { RootStore } from "../../store";
 import { createMarkup, getEntities, getMarkups, getResources, getResourceTexts, updateCommentary } from "../../actions/models/resourses/resources";
 import { TEntity, TMarkup, TResource, TResourceText } from "../../actions/models/resourses/types";
 import CommentaryInfo, { TComment } from "./CommentaryInfo";
-import { buildTree, TPin } from "../../utils";
+import { buildTree, getPrimeCorpusParent, TPin } from "../../utils";
 import Pin from "./Pin";
 import { getClasses } from "../../actions/models/classes/classes";
 import { getObjects } from "../../actions/models/objects/objects";
@@ -266,7 +266,7 @@ const Workspace: React.FunctionComponent<IWorkspaceProps> = ({ match }: RouteCom
                 <p>Классы:</p>
                 <div>
                     <div className='tree'>
-                        <Tree model_name='class' tree_data={buildTree(primeState.classes.classes.filter(c => c.corpus === currentResource.corpus))} />
+                        <Tree model_name='class' tree_data={buildTree(primeState.classes.classes.filter(c => c.corpus === getPrimeCorpusParent(currentResource.corpus, primeState.corpuses.corpuses)))} />
                     </div>
                 </div>
             </>}

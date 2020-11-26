@@ -1,5 +1,6 @@
 import { TAlert } from './actions/alerts/types'
 import { TClass, TClassAttribute } from './actions/models/classes/types'
+import { TCorpus } from './actions/models/corpuses/types'
 
 // export const SERVER_URL = 'http://localhost:8000/'
 export const SERVER_URL = 'https://annotation-project-backend.herokuapp.com/'
@@ -99,4 +100,10 @@ export const handleError = (err): TAlert => {
         }
     }
     return { type: err.response.status, message }
+}
+
+export const getPrimeCorpusParent = (corpus_id: number, corpuses: TCorpus[]): number => {
+    const current = corpuses.find(c => c.id == corpus_id)
+    if (current.parent === null) return current.id
+    return getPrimeCorpusParent(current.parent, corpuses)
 }

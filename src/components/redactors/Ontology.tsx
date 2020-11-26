@@ -11,7 +11,7 @@ import { deleteResource, getEntities, getMarkups, getResources, getResourceTexts
 import { TResourceType } from '../../actions/models/resourses/types';
 import objectReducer from '../../reducers/models/objects';
 import { RootStore } from '../../store';
-import { buildTree, TPin } from '../../utils';
+import { buildTree, getPrimeCorpusParent, TPin } from '../../utils';
 import Pin from '../layout/Pin';
 import Tree from '../utils/Tree';
 import TreeNode from '../utils/TreeNode';
@@ -173,7 +173,7 @@ const Ontology: React.FunctionComponent<IOntologyProps> = (props) => {
                         {corpusOntologyOptions === 'classes' && <>
                             <div className='tree'>
                                 <button className='create-entity' onClick={() => setSelectedModel('class')}><i className='fas fa-plus'></i></button>
-                                <Tree model_name='class' tree_data={buildTree(primeState.classes.classes.filter(c => c.corpus === selectedCorpusId))} />
+                                <Tree model_name='class' tree_data={buildTree(primeState.classes.classes.filter(c => c.corpus === getPrimeCorpusParent(selectedCorpusId, primeState.corpuses.corpuses)))} />
                             </div>
                         </>}
                         {corpusOntologyOptions === 'places' &&
