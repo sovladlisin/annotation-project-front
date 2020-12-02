@@ -20,6 +20,7 @@ const ClassForm: React.FunctionComponent<IClassFormProps> = (props) => {
     const [parent, setParent] = React.useState<number>(props.class ? props.class.parent : null)
 
     const corpusState = useSelector((state: RootStore) => state.corpuses)
+    const classState = useSelector((state: RootStore) => state.classes)
 
     const primeCorpus = getPrimeCorpusParent(props.corpusId, corpusState.corpuses)
 
@@ -47,7 +48,7 @@ const ClassForm: React.FunctionComponent<IClassFormProps> = (props) => {
         }
     }, [props.saveTrigger])
 
-    const class_select = corpusState.corpus_classes.map((item) => {
+    const class_select = classState.classes.filter(c => c.corpus === primeCorpus).map((item) => {
         return (
             <option key={item.id} value={item.id}>{item.name}</option>
         )
