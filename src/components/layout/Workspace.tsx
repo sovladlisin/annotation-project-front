@@ -115,7 +115,7 @@ const Workspace: React.FunctionComponent<IWorkspaceProps> = ({ match }: RouteCom
                 class: s_class
             }
         }))
-    }, [selectedMarkup])
+    }, [selectedMarkup, primeState.objects.new_entity])
 
     React.useEffect(() => {
         if (hoveredObject === null) {
